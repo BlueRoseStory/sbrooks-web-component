@@ -1,0 +1,12 @@
+{
+  "name": "sbrooks-web-component",
+  "version": "1.0.15",
+  "description": "first pass at web component",
+  "main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Scott Brooks",
+  "license": "ISC"
+}
