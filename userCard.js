@@ -42,7 +42,7 @@ template.innerHTML = `
 export class UserCard extends HTMLElement {
   constructor() {
     super();
-    console.log('sbrooks-web-component, version 1.0.12')
+    console.log('sbrooks-web-component, version 1.0.29')
 
     this.showInfo = true;
 
@@ -81,7 +81,6 @@ export class UserCard extends HTMLElement {
         this.shadowRoot.querySelector('img').src = newValue;
         break;
     }
-
   }
 
   toggleInfo() {
@@ -101,19 +100,13 @@ export class UserCard extends HTMLElement {
   }
 
   connectedCallback() {
-
-    /*
-    this.shadowRoot.querySelector('h3').innerText =
-      this.getAttribute('name');
-    */
-
     this.shadowRoot.querySelector('#toggle-info')
-      .addEventListener('click', () => this.toggleInfo());
+      .addEventListener('click', this.toggleInfo.bind(this));
   }
 
   disconnectedCallback() {
     this.shadowRoot.querySelector('#toggle-info')
-      .removeEventListener();
+      .removeEventListener('click', this.toggleInfo.bind(this));
   }
 }
 
