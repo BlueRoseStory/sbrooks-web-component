@@ -39,10 +39,10 @@ template.innerHTML = `
 </div>
 `;
 
-export class UserCard extends HTMLElement {
+class UserCard extends HTMLElement {
   constructor() {
     super();
-    console.log('sbrooks-web-component, version 1.0.29')
+    console.log('sbrooks-web-component, version 1.0.41')
 
     this.showInfo = true;
 
@@ -51,7 +51,7 @@ export class UserCard extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['name', 'token', 'avatar'];
+    return ['name', 'token', 'user-id'];
   }
 
   get token() {
@@ -77,8 +77,14 @@ export class UserCard extends HTMLElement {
     console.log(`${name}'s value has been changed from ${oldValue} to ${newValue}`);
 
     switch (name) {
-      case 'avatar':
-        this.shadowRoot.querySelector('img').src = newValue;
+      case 'user-id':
+        let gender = "men";
+        let id = newValue;
+        if (Number(newValue) > 100) {
+           id = Number(newValue) - 100;
+           gender = "women"
+        }
+        this.shadowRoot.querySelector('img').src = `https://randomuser.me/api/portraits/${gender}/${id}.jpg`
         break;
     }
   }

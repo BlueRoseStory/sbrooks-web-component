@@ -1,9 +1,10 @@
 {
   "name": "sbrooks-web-component",
-  "version": "1.0.29",
+  "version": "1.0.41",
   "description": "first pass at web component",
   "main": "index.js",
   "module": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
