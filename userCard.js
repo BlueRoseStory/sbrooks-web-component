@@ -1,4 +1,4 @@
-const template = document.createElement('template');
+const template = document.createElement("template");
 template.innerHTML = `
 <style>
   .user-card {
@@ -42,16 +42,16 @@ template.innerHTML = `
 class UserCard extends HTMLElement {
   constructor() {
     super();
-    console.log('sbrooks-web-component, version 1.0.41')
+    this._verbose = false;
 
     this.showInfo = true;
 
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
   static get observedAttributes() {
-    return ['name', 'token', 'user-id'];
+    return ["verbose", "name", "token", "userid"];
   }
 
   get token() {
@@ -60,7 +60,7 @@ class UserCard extends HTMLElement {
 
   set token(value) {
     this._token = value;
-    console.log('token', this._token);
+    console.log("token", this._token);
   }
 
   get name() {
@@ -69,22 +69,31 @@ class UserCard extends HTMLElement {
 
   set name(value) {
     this._name = value;
-    console.log('name', this._name);
-    this.shadowRoot.querySelector('h3').innerText = this._name;
+    this.shadowRoot.querySelector("h3").innerText = this._name;
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    console.log(`${name}'s value has been changed from ${oldValue} to ${newValue}`);
+    this.log(`${name} value changed from ${oldValue} to ${newValue}`);
 
     switch (name) {
-      case 'user-id':
+      case "verbose":
+        this._verbose = newValue === "true";
+        this.log("version 1.0.41");
+        break;
+      case "name":
+        this._name = newValue;
+        this.shadowRoot.querySelector("h3").innerText = this._name;
+        break;
+      case "userid":
         let gender = "men";
         let id = newValue;
         if (Number(newValue) > 100) {
-           id = Number(newValue) - 100;
-           gender = "women"
+          id = Number(newValue) - 100;
+          gender = "women";
         }
-        this.shadowRoot.querySelector('img').src = `https://randomuser.me/api/portraits/${gender}/${id}.jpg`
+        this.shadowRoot.querySelector(
+          "img"
+        ).src = `https://randomuser.me/api/portraits/${gender}/${id}.jpg`;
         break;
     }
   }
@@ -92,27 +101,38 @@ class UserCard extends HTMLElement {
   toggleInfo() {
     this.showInfo = !this.showInfo;
 
-    const info = this.shadowRoot.querySelector('.info');
-    const toggleBtn = this.shadowRoot.querySelector('#toggle-info');
+    const info = this.shadowRoot.querySelector(".info");
+    const toggleBtn = this.shadowRoot.querySelector("#toggle-info");
 
     if (this.showInfo) {
-      info.style.display = 'block';
-      toggleBtn.innerText = 'Hide Info';
-    }
-    else {
-      info.style.display = 'none';
-      toggleBtn.innerText = 'Show Info';
+      info.style.display = "block";
+      toggleBtn.innerText = "Hide Info";
+    } else {
+      info.style.display = "none";
+      toggleBtn.innerText = "Show Info";
     }
   }
 
   connectedCallback() {
-    this.shadowRoot.querySelector('#toggle-info')
-      .addEventListener('click', this.toggleInfo.bind(this));
+    this.shadowRoot
+      .querySelector("#toggle-info")
+      .addEventListener("click", this.toggleInfo.bind(this));
   }
 
   disconnectedCallback() {
-    this.shadowRoot.querySelector('#toggle-info')
-      .removeEventListener('click', this.toggleInfo.bind(this));
+    this.shadowRoot
+      .querySelector("#toggle-info")
+      .removeEventListener("click", this.toggleInfo.bind(this));
+  }
+
+  log(msg, arg) {
+    if (this._verbose) {
+      if (arg) {
+        console.log(msg, arg);
+      } else {
+        console.log(msg);
+      }
+    }
   }
 }
 
