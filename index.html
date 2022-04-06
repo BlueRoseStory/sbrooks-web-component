@@ -7,16 +7,25 @@
   </head>
 
   <body>
-    <user-card name="John Doe" avatar="https://randomuser.me/api/portraits/men/1.jpg">
+    <user-card name="John Doe" userid="11" >
         <div slot="email">john@somewhere.com</div>
         <div slot="phone">111-222-3333</div>
     </user-card>
 
-    <user-card name="Jane Doe" avatar="https://randomuser.me/api/portraits/women/1.jpg">
+    <user-card name="Jane Doe" userid="111">
         <div slot="email">jane@somewhere.com</div>
         <div slot="phone">777-888-9999</div>
     </user-card>
 
     <script src="userCard.js"></script>
+
+    <script>
+      document.addEventListener("componentChanged", componentChanged, false);
+
+      function componentChanged(e) {
+        console.log('componentChanged', e);
+      }
+
+    </script>
   </body>
 </html>

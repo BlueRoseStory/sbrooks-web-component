@@ -78,13 +78,14 @@ class UserCard extends HTMLElement {
     switch (name) {
       case "verbose":
         this._verbose = newValue === "true";
-        this.log("version 1.0.41");
+        this.log("version 1.0.44");
         break;
       case "name":
         this._name = newValue;
         this.shadowRoot.querySelector("h3").innerText = this._name;
         break;
       case "userid":
+        this._userid = newValue;
         let gender = "men";
         let id = newValue;
         if (Number(newValue) > 100) {
@@ -111,6 +112,21 @@ class UserCard extends HTMLElement {
       info.style.display = "none";
       toggleBtn.innerText = "Show Info";
     }
+
+    const event = new CustomEvent(
+      "componentChanged", 
+      {
+        detail: {
+          userid: this._userid,
+          name: this._name,
+          time: new Date(),
+        },
+        bubbles: true,
+        cancelable: true
+      }
+    );
+    
+    this.dispatchEvent(event);
   }
 
   connectedCallback() {

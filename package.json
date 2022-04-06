@@ -1,6 +1,6 @@
 {
   "name": "sbrooks-web-component",
-  "version": "1.0.41",
+  "version": "1.0.44",
   "description": "first pass at web component",
   "main": "index.js",
   "module": "index.js",

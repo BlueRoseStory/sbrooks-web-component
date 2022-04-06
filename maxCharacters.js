@@ -13,7 +13,7 @@ template.innerHTML = `
 class MaxCharacters extends HTMLElement {
     constructor() {
         super();
-        console.log('constructor, version 1.0.41');
+        console.log('constructor, version 1.0.44');
 
         this._maximum = '100';
 
